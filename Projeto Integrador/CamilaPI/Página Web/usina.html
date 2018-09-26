@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>A Usina</title>
+	<link rel="stylesheet" type="text/css" href="principal.css">
+	<link href="https://fonts.googleapis.com/css?family=Quicksand:300,400" rel="stylesheet">
+</head>
+<body>
+	<nav id="menu">
+    	<ul class="menu">
+        	<li><a href="pagina-inicial.html">Página Inicial</a></li>
+        	<li><a href="usina.html">A Usina</a></li>
+    	</ul>
+	</nav>
+	<span class="title">
+		<header>
+			Nome Da Página
+			<img src="logo.png" width="85" height="150">
+		</header>
+	</span>
+	<div class="bloco">
+		<h2>A Usina</h2>
+		<p>
+			O protótipo de usina de separação de resíduos sólidos foi um projeto desenvolvido durante as aulas de Projeto Integrador, disciplina do segundo e terceiro ano do curso Técnico em Informática Integrado ao Ensino Médio, lecionado no Instituto Federal Catarinense - Campus Camboriú.
+		</p>
+	</div>
+	<div class="bloco">
+		<h2>Quantidade de resíduos separados</h2>
+		
+		<div class="info-data">
+			<span>Até o momento, nossa usina já separou:</span>
+			<span>
+				<p ID="Clock" align="right">00:00:00</p>
+				<p ID="data" align="right"></p>
+			</span>
+		</div>
+		<span class="quantidade">
+			<div class="container">
+				<span>5</span>
+				<span>7</span>
+				kg
+				<span>5</span>
+				<span>0</span>
+				g
+			</div>
+		</span>
+		<canvas id="myChart" width="432" height="216" style="display: block; width: 432px; height: 216px;"></canvas>
+		<canvas id="myPieChart" width="432" height="216" style="display: block; width: 50px; height: 50px;"></canvas>
+	</div>
+<SCRIPT LANGUAGE="JAVASCRIPT">
+	var data = document.getElementById("data");
+<!--
+
+var now = new Date();
+var mName = now.getMonth() +1 ;
+var dName = now.getDay() +1;
+var dayNr = now.getDate();
+var yearNr=now.getYear();
+if(dName==1) {Day = "Domingo";}
+if(dName==2) {Day = "Segunda-feira";}
+if(dName==3) {Day = "Terça-feira";}
+if(dName==4) {Day = "Quarta-feira";}
+if(dName==5) {Day = "Quinta-feira";}
+if(dName==6) {Day = "Sexta-feira";}
+if(dName==7) {Day = "Sábado";}
+if(mName==1){Month = "Janeiro";}
+if(mName==2){Month = "Fevereiro";}
+if(mName==3){Month = "Março";}
+if(mName==4){Month = "Abril";}
+if(mName==5){Month = "Maio";}
+if(mName==6){Month = "Junho";}
+if(mName==7){Month = "Julho";}
+if(mName==8){Month = "Agosto";}
+if(mName==9){Month = "Setembro";}
+if(mName==10){Month = "Outubro";}
+if(mName==11){Month = "Novembro";}
+if(mName==12){Month = "Dezembro";}
+if(yearNr < 2000) {Year = 1900 + yearNr;}
+else {Year = yearNr;}
+data.innerHTML = (dayNr + "/" + Month + "/" + Year);
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+  var Elem = document.getElementById("Clock");
+  function Horario(){ 
+    var Hoje = new Date(); 
+    var Horas = Hoje.getHours(); 
+    if(Horas < 10){ 
+      Horas = "0"+Horas; 
+    } 
+    var Minutos = Hoje.getMinutes(); 
+    if(Minutos < 10){ 
+      Minutos = "0"+Minutos; 
+    } 
+    var Segundos = Hoje.getSeconds(); 
+    if(Segundos < 10){ 
+      Segundos = "0"+Segundos; 
+    } 
+    Elem.innerHTML = Horas+":"+Minutos+":"+Segundos; 
+    } 
+    window.setInterval("Horario()",1000);
+//-->
+</SCRIPT>
+
+
+<script src="Chart.js"></script>
+<script>
+var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+        datasets: [{
+            label: 'Quantidade de lixo separado em quilogramas',
+            data: [2.3, 9.5, 3, 5.7, 2, 3, 5, 1, 5, 5,  9, 7],
+            backgroundColor: [
+                'rgba(2, 120, 98, 0.2)',
+            ],
+            borderColor: [
+                '#027862'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>
+<script>
+	var ctx2 = document.getElementById("myPieChart");
+	var myPieChart = new Chart(ctx2,{
+    type: 'line',
+    data: {
+    datasets: [{
+    	label:'Plástico',
+        data: [1,3,2,3,1,2,3,4,1,3,4,2],
+        backgroundColor: ['rgba(0, 0, 0, 0.0)'],
+        borderColor:['#53BFFD']
+    },
+    {
+    	label:'Papel',
+    	data:[1,2,3,4,3,2,1,5,6,8,5,2],
+    	backgroundColor:['rgba(5, 128, 235, 0.0)'],
+    	borderColor:['red']
+    },
+    {
+    	label:'Metal',
+    	data:[7,6,4,3,7,1,2,3,1,5,6,7],
+    	backgroundColor:['rgba(5, 128, 235, 0.0)'],
+    	borderColor:['yellow']
+    },
+    {
+    	label:'Vidro',
+    	data:[3,7,1,9,3,7,4,7,5,6,3,8],
+    	backgroundColor:['rgba(5, 128, 235, 0.0)'],
+    	borderColor:['green']
+    },
+    ],
+    labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+	},
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>
+</body>
+</html>

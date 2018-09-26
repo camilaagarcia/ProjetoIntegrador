@@ -1,0 +1,77 @@
+*{
+	font-family: 'Quicksand', sans-serif;
+}
+body {
+	background-image: url("paper.jpg");
+}
+.bloco{
+	border-style: solid;
+	background-color: white;
+	width: 60%;
+	padding-top: 50px;
+	padding-right: 50px;
+	padding-bottom: 50px;
+	padding-left: 50px;
+	margin-left: 17%;
+}
+.title{
+	height: 150px;
+	text-align: center;
+	font-size: 100px;
+}
+.pub{
+	font-weight: 300;
+}
+#clearfix {
+	overflow: auto;
+}
+#menu ul {
+	font-size: 20px;
+	padding:0px;
+	margin:0px;
+	background-color: none;
+	list-style:none;
+	text-align: center;
+
+}
+#menu ul li { 
+	display: inline;
+}
+#menu ul li a {
+	width: 25%;
+	padding: 2px 100px;
+	display: inline-block;
+	background-color:none;
+	border-top: 2px solid;
+	border-bottom: 2px solid;
+	color: black;
+	text-decoration: none;
+}
+#menu ul li a:hover {
+	background-color:#05cceb;
+	color: white;
+	border: solid #05cceb;
+}
+.quantidade{
+    display: flex;
+    justify-content: space-around;
+}
+.quantidade .container > span{
+	font-size: 150px;
+	border:solid;
+	border-radius: 30px;
+	background: #645848;
+	padding: 0 10px
+}
+.info-data {
+	border: 0 none;
+	display: flex;
+	margin-bottom: 50px
+}
+.info-data > span{
+	flex-grow: 1
+}
+.info-data > span p{
+	margin: 0;
+	padding: 0
+}

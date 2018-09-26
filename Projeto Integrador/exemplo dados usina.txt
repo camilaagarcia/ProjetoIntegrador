@@ -1,0 +1,15 @@
+INSERT INTO `usina`.`material` (`id`, `tipo`, `peso`, `data_hora`) VALUES ('2', 'plastico', '0.5', '2018-05-21');
+
+INSERT INTO `usina`.`material` (`id`, `tipo`, `peso`, `data_hora`) VALUES ('3', 'metal', '0.6', '2018-02-21');
+
+INSERT INTO `usina`.`material` (`id`, `tipo`, `peso`, `data_hora`) VALUES ('4', 'metal', '0.8', '2018-05-21');
+
+INSERT INTO `usina`.`material` (`id`, `tipo`, `peso`, `data_hora`) VALUES ('5', 'vidro', '0.5', '2018-02-12');
+
+INSERT INTO `usina`.`material` (`id`, `tipo`, `peso`, `data_hora`) VALUES ('6', 'vidro', '0.6', '2018-05-12');
+
+INSERT INTO `usina`.`material` (`id`, `tipo`, `peso`, `data_hora`) VALUES ('7', 'plastico', '0.3', '2018-03-12');
+
+INSERT INTO `usina`.`material` (`id`, `tipo`, `peso`, `data_hora`) VALUES ('8', 'metal', '0.5', '2018-03-12');
+
+INSERT INTO `usina`.`material` (`id`, `tipo`, `peso`, `data_hora`) VALUES ('9', 'vidro', '0.8', '2018-03-12');
