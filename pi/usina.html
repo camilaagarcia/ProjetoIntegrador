@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>A Usina</title>
+	<link rel="stylesheet" type="text/css" href="principal.css">
+	<link href="https://fonts.googleapis.com/css?family=Quicksand:300,400" rel="stylesheet">
+</head>
+<body>
+	<nav id="menu">
+    	<ul class="menu">
+        	<li><a href="pagina-inicial.html">Página Inicial</a></li>
+        	<li><a href="usina.html">A Usina</a></li>
+    	</ul>
+	</nav>
+	<span class="title">
+		<header>
+			IFC Sustentável
+			<img src="logo.png" width="85" height="150">
+		</header>
+	</span>
+	<div class="bloco">
+		<h2>A Usina</h2>
+		<p>
+			O protótipo de usina de separação de resíduos sólidos foi desenvolvido durante as aulas de Projeto Integrador, disciplina do segundo e terceiro ano do curso Técnico em Informática Integrado ao Ensino Médio, lecionado no Instituto Federal Catarinense - Campus Camboriú.
+		</p>
+	</div>
+	<div class="bloco">
+		<h2>
+            Quantidade de resíduos separados
+            <img src="off.png" width="50" height="70" align="right"/>
+        </h2>
+		
+		<div class="info-data">
+			<span>Até o momento, nossa usina já separou:
+            </span>
+		</div>
+		<span class="quantidade">
+			<div class="container">
+				
+			</div>
+		</span>
+        <div>Selecione o ano:
+            <select class="anos">
+                <option>Carregando...</option>
+            </select>
+        </div>
+        <canvas id="myChart"></canvas>
+        <canvas id="myChart2"></canvas>
+    </div>
+
+<script src="Chart.js"></script>
+<script language="javascript">
+
+    const labelDay = []
+    const labelMonth = []
+
+    labelDay[1] = "Domingo";
+    labelDay[2] = "Segunda-feira";
+    labelDay[3] = "Terça-feira";
+    labelDay[4] = "Quarta-feira";
+    labelDay[5] = "Quinta-feira";
+    labelDay[6] = "Sexta-feira";
+    labelDay[7] = "Sábado";
+
+    labelMonth[1] = "Janeiro";
+    labelMonth[2] = "Fevereiro";
+    labelMonth[3] = "Março";
+    labelMonth[4] = "Abril";
+    labelMonth[5] = "Maio";
+    labelMonth[6] = "Junho";
+    labelMonth[7] = "Julho";
+    labelMonth[8] = "Agosto";
+    labelMonth[9] = "Setembro";
+    labelMonth[10] = "Outubro";
+    labelMonth[11] = "Novembro";
+    labelMonth[12] = "Dezembro";
+
+    var anos = document.querySelector(".anos");
+    var ctx = document.getElementById("myChart");
+    var ctx2 = document.getElementById("myChart2");
+
+    async function showChart() {
+        var resqChart = await fetch('http://localhost/server/api-material.php?year='+anos.value)
+        var respChart = await resqChart.json()
+
+        let chave;
+
+        let geral =  {
+            label: [],
+            values: []
+        }
+
+        for(chave in respChart.geral) {   
+            let valor = respChart.geral[chave]
+            geral.label.push(labelMonth[chave])
+            geral.values.push(valor)
+        }
+
+        let plastico =  {
+            values: []
+        }
+
+        for(chave in respChart.plastico) {   
+            let valor = respChart.plastico[chave]
+            plastico.values.push(valor)
+        }
+
+        let metal =  {
+            values: []
+        }
+
+        for(chave in respChart.metal) {   
+            let valor = respChart.metal[chave]
+            metal.values.push(valor)
+        }
+
+        let vidro =  {
+            values: []
+        }
+
+        for(chave in respChart.vidro) {   
+            let valor = respChart.vidro[chave]
+            vidro.values.push(valor)
+        }
+
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: geral.label,
+                datasets: [
+                    {
+                        label: 'Quantidade em quilogramas',
+                        data: geral.values,
+                        backgroundColor: ['rgba(2, 120, 98, 0.2)'],
+                        borderColor: ['#027862'],
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+
+        var myChart2 = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                
+                datasets: [
+                    {
+                        label:'Plástico',
+                        data: plastico.values,
+                        backgroundColor: ['rgba(0, 0, 0, 0.0)'],
+                        borderColor:['red']
+                    },
+                    {
+                        label:'Metal',
+                        data: metal.values,
+                        backgroundColor:['rgba(5, 128, 235, 0.0)'],
+                        borderColor:['yellow']
+                    },
+                    {
+                        label:'Vidro',
+                        data: vidro.values,
+                        backgroundColor:['rgba(5, 128, 235, 0.0)'],
+                        borderColor:['green']
+                    },
+                ],
+                    labels: geral.label,
+                },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+
+    async function getAnos() {
+        let req = await fetch("http://127.0.0.1/server/api-anos.php")
+        let resp = await req.json()
+        anos.innerHTML = ""
+        resp.forEach(val => {
+            anos.innerHTML += "<option>"+val.ano+"</option>"
+        })
+        showChart()
+        anos.addEventListener('change', showChart)
+    }
+
+    getAnos();
+	var data = document.getElementById("data");
+
+    const quantidadeContainer = document.querySelector(".quantidade .container");
+
+    async function getPesoTotal() {
+        let resq = await fetch("http://127.0.0.1/server/api-peso.php")
+        let resp = await resq.json()
+        quantidadeContainer.innerHTML = ''
+
+        var exploded = resp.toString().split('.')
+        var kg = exploded[0]
+        var g = exploded[1]
+        
+        kg.split('').forEach(n => {
+        var span = document.createElement('span')
+        span.innerHTML = n
+        quantidadeContainer.appendChild(span)
+        })
+        
+        quantidadeContainer.innerHTML += "kg";
+
+        g.split('').forEach(n => {
+            var span = document.createElement('span')
+            span.innerHTML = n
+            quantidadeContainer.appendChild(span)
+        }) 
+
+        quantidadeContainer.innerHTML += "g";
+
+    }
+    getPesoTotal();
+
+</script>
+</body>
+</html>
